@@ -1,9 +1,7 @@
 package database;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 
 public class SQLiteConnection {
     private Connection connection;

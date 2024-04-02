@@ -1,7 +1,6 @@
 package user;
 
-import java.awt.Color;
-
+import java.awt.*;
 import javax.swing.*;
 
 public class Container extends JPanel {
