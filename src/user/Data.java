@@ -27,6 +27,8 @@ public class Data extends JPanel {
 
         populateTable();
 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         JButton deleteButton = new JButton("Delete");
         deleteButton.addActionListener(e -> deleteSelectedRow());
         add(deleteButton, BorderLayout.NORTH);
