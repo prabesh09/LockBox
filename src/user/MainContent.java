@@ -8,22 +8,21 @@ import javax.swing.*;
 import database.*;
 
 public class MainContent extends JPanel {
-    private JPanel contentPanel;
     private JButton addNewItem;
     private JScrollPane scrollPane;
 
     public MainContent() {
         setLayout(new BorderLayout());
 
-        contentPanel = new JPanel(new GridLayout(0, 1));
+        SQLiteConnection sqliteConnection = new SQLiteConnection("information.db");
+        Connection connection = sqliteConnection.getConnection();
+        Data data = new Data();
 
-        scrollPane = new JScrollPane(contentPanel);
+        scrollPane = new JScrollPane(data);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
         add(scrollPane, BorderLayout.CENTER);
 
         addNewItem = new JButton("Add");
-
         addNewItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 try {
@@ -42,9 +41,6 @@ public class MainContent extends JPanel {
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, new ImageIcon());
 
                     if (result == JOptionPane.OK_OPTION) {
-                        SQLiteConnection sqliteConnection = new SQLiteConnection("information.db");
-                        Connection connection = sqliteConnection.getConnection();
-
                         if (connection == null) {
                             JOptionPane.showMessageDialog(null, "Failed to connect to the database.", "Error",
                                     JOptionPane.ERROR_MESSAGE);
@@ -53,7 +49,8 @@ public class MainContent extends JPanel {
 
                         StoreData sd = new StoreData(connection);
                         sd.storeCredentials(site.getText(), username.getText(), String.valueOf(password.getPassword()));
-                        JOptionPane.showMessageDialog(null, "Your Password has been Saved!");
+                        JOptionPane.showMessageDialog(null, "Your data has been Saved!");
+                        data.populateTable();
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
